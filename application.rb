@@ -1,6 +1,5 @@
 require 'sinatra/base'
 require 'gschool_database_connection'
-require './lib/users_table'
 
 require './lib/country_list'
 
@@ -10,14 +9,10 @@ class Application < Sinatra::Application
     super
     @database_connection = GschoolDatabaseConnection::DatabaseConnection.establish(ENV['RACK_ENV'])
 
-    @users_table = UsersTable.new(
-      GschoolDatabaseConnection::DatabaseConnection.establish(ENV["RACK_ENV"])
-    )
-
   end
 
   get '/' do
-    @users = @users_table.user_setter
+    @users = @database_connection.sql("SELECT * FROM users")
 
     erb :index, :locals => {:users => @users}
   end
@@ -33,8 +28,7 @@ class Application < Sinatra::Application
   end
 
   post '/' do
-    puts "Hi I'm testing this."
-    puts @users = @users_table.create(params[:name], params[:message])
+    @database_connection.sql("INSERT INTO users (name, message) VALUES ('#{params[:name]}', '#{params[:message]}')")
     redirect "/"
   end
 
