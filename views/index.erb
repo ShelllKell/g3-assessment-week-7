@@ -2,3 +2,40 @@
 
 <p>We show totally accurate lists of continents and countries!!</p>
 
+
+<p></p>
+
+<form action="/" method="post">
+
+  <div class="form-element">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name"/>
+  </div>
+
+  <div class="form-element">
+    <label for="message">Message: </label>
+    <input type="text" id="message" name="message"/>
+  </div>
+
+  <p></p>
+
+  <input type="submit" class="button" value="Add Message"/>
+</form>
+
+<p></p>
+
+
+<table border="1" style="width:300px">
+  <tr>
+    <td><%= "Name" %></td>
+    <td><%= "Message" %></td>
+  </tr>
+
+  <% @users.each do |list| %>
+
+    <tr>
+      <td><%= list["name"] %></td>
+      <td><a href="<%= list["message"] %>" target="_blank"></a></td>
+    </tr>
+  <% end %>
+</table>
