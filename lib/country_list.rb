@@ -21,7 +21,11 @@ class CountryList
   end
 
   def countries_for_continent(continent)
-    all
+    all.select { |continent_hash| continent_hash[:continent] == continent}
+
+
+    #selecting the hashes where the value of the continent key = the argument
+
   end
 
 end
